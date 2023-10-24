@@ -1,4 +1,4 @@
-// Detail: Program for todo app in C
+// Detail: Program for todo app using C
 // Author: Rishika Snehi
 // Note:   Uncomment print statements for debugging or understanding the flow
 
