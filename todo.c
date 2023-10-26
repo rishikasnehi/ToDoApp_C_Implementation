@@ -1,8 +1,9 @@
-// Detail: Program for todo app using C
+// Detail: Program for todo app in C
 // Author: Rishika Snehi
 // Note:   Uncomment print statements for debugging or understanding the flow
 
 #include <stdio.h>
+#include <stdlib.h>
 
 // Structure to store task items
 struct Task
@@ -12,8 +13,15 @@ struct Task
     char owner[20];
 };
 
+void completed_task()
+{
+    int mark_as_done;
+    printf("enter the task number you want to mask as done\n");
+    scanf("%d", &mark_as_done);
+}
+
 // Function to show the tasks entered in the list
-void show_list(struct Task tasks[], int nums_tasks)
+void show_list(struct Task *tasks, int nums_tasks)
 {
     for (int i = 0; i < nums_tasks; i++)
     {
@@ -21,11 +29,26 @@ void show_list(struct Task tasks[], int nums_tasks)
     }
 }
 
+void create_task(struct Task *tasks, int num_tasks)
+{
+    for (int i = 0; i < num_tasks; i++)
+    {
+        printf("Enter time : ");
+        gets(tasks[num_tasks].time);
+        printf("Enter details : ");
+        gets(tasks[num_tasks].details);
+        printf("Enter owner : ");
+        gets(tasks[num_tasks].owner);
+    }
+}
+
 // Function to choose the desired operation and to run that operation
-int run(struct Task tasks[], int num_tasks)
+int run(struct Task *tasks, int num_tasks)
 {
 
     int operation;
+    char temp[10];
+    char temp1[45];
     while (1)
     {
         printf("\n1. create new task\n\
@@ -34,13 +57,17 @@ int run(struct Task tasks[], int num_tasks)
 4. exit\n");
         printf("select operation : ");
         scanf("%d", &operation);
+        // printf("Thank you for the input...\n");
+        // gets(temp);
         switch (operation)
         {
         case 1:
-            printf("In progress\n");
+            printf("Thank you for the input...\n");
+            gets(temp);
+            create_task(tasks, num_tasks);
             break;
         case 2:
-            printf("In progress\n");
+            completed_task();
             break;
         case 3:
             show_list(tasks, num_tasks);
@@ -58,13 +85,9 @@ int run(struct Task tasks[], int num_tasks)
 
 int main()
 {
-    struct Task tasks[3] =
-        {
-            [0] = {.time = "24 oct 23, 12:30", .details = "complete physics work", .owner = "Rishika"},
-            [1] = {"24 oct 23, 13:30", "complete chemistry work", "Rishika"},
-            [2] = {"24 oct 23, 14:30", "complete maths work", "Rishika"},
-        };
-    int num_tasks = sizeof(tasks) / sizeof(tasks[0]);
+    struct Task *tasks;
+    int num_tasks = 3;
+    tasks = (struct Tasks *)malloc(num_tasks * sizeof(struct Task));
     run(tasks, num_tasks);
     return 0;
 }
